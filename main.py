@@ -34,6 +34,7 @@ playerImg = pygame.transform.scale(playerImgCrude, (64, 64))
 #playerX = 370
 #playerY = 480
 playerPosition = [370, 480]
+playerMovement = [0, 0]
 
 def player(playerPosition):
     x = playerPosition[0]
@@ -42,7 +43,7 @@ def player(playerPosition):
 
 
 # Game Loop
-#running = True
+
 while True:
     # Game code
     for event in pygame.event.get():
@@ -51,8 +52,19 @@ while True:
             cv2.destroyAllWindows()
             pygame.quit()
             sys.exit()
-
-
+        # if Keystroke is pressed or not
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                # print('Left Button has pressed!')
+                playerMovement[0] = -15
+            if event.key == pygame.K_RIGHT:
+                playerMovement[0] = 15
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT:
+                # print('Left Button is Up now')
+                playerMovement[0] = 0
+            if event.key == pygame.K_RIGHT:
+                playerMovement[0] = 0
     success, frame = cap.read()
     #print(frame.shape)
 
@@ -67,15 +79,16 @@ while True:
         #print(lmList['bbox'])
         #print(hands[0])
         positionOfTheHand = lmList['lmList']
-        playerPosition[0] = positionOfTheHand[9][0]
-        playerPosition[1] = positionOfTheHand[9][1]
+        #playerPosition[0] = positionOfTheHand[9][0]
+        #playerPosition[1] = positionOfTheHand[9][1]
     # Opencv Screen
     #frame = cv2.resize(frame, (0, 0), None, 0.3, 0.3)
-    cv2.imshow("webcam", frame)
+    #cv2.imshow("webcam", frame)
 
     # Game screen
     screen.fill((50, 10, 100))
-
+    playerPosition[0] += playerMovement[0]
+    playerPosition[1] += playerMovement[1]
     # moving the Player
     player(playerPosition)
 
