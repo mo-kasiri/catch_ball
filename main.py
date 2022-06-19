@@ -1,3 +1,4 @@
+import random
 import pygame
 import sys
 import cv2
@@ -30,7 +31,6 @@ pygame.display.set_icon(icon)
 # Player
 playerImgCrude = pygame.image.load('images/spaceship.png')
 playerImg = pygame.transform.scale(playerImgCrude, (64, 64))
-
 #playerX = 370
 #playerY = 480
 playerPosition = [370, 480]
@@ -42,8 +42,20 @@ def player(playerPosition):
     screen.blit(playerImg, (x, y))
 
 
-# Game Loop
+# Enemy
+EnemyImg = pygame.image.load('images/fly.png')
+EnemyX = 100
+EnemyY = 100
 
+def Enemy(x, y):
+    screen.blit(EnemyImg, (x, y))
+
+
+
+# Game Loop
+iteratorX = 0
+iteratorY = 0
+indexNumber = 1
 while True:
     # Game code
     for event in pygame.event.get():
@@ -91,6 +103,37 @@ while True:
     playerPosition[1] += playerMovement[1]
     # moving the Player
     player(playerPosition)
+
+    ## placing enemies
+    Enemy(EnemyX, EnemyY)
+    # EnemyY += 5
+    ## moving enemies
+
+        # moving X
+    if EnemyX >= width - 32:
+        iteratorX = 0
+    if EnemyX <= 0:
+        iteratorX = 1
+    if iteratorX == 0:
+        EnemyX -= 20
+       # EnemyY -= 20
+    if iteratorX == 1:
+        EnemyX += 20
+       # EnemyY -= 20
+
+        # moving Y
+    if EnemyY >= height - 32:
+        iteratorY = 0
+    if EnemyY <= 0:
+        iteratorY = 1
+    if iteratorY == 0:
+        EnemyY -= 5
+    if iteratorY == 1:
+        EnemyY += 5
+
+
+
+
 
     # display update
     pygame.display.update()
