@@ -1,2 +1,3 @@
 # InsectKiller
- A game with opencv, mediapipe and pygame
+this is a game
+A game with opencv, mediapipe and pygame
