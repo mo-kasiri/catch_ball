@@ -22,6 +22,11 @@ pygame.init()
 # Define the screen
 screen = pygame.display.set_mode((width, height))
 
+# Timer
+clock = pygame.time.Clock()
+currentTime = 100
+
+
 # Title and Icon
 pygame.display.set_caption("Mamad Game")
 icon = pygame.image.load('images/logo.png')
@@ -58,6 +63,12 @@ textY = 10
 def show_score(x, y):
     score = font.render("Score : " + str(score_value), True, (255, 255, 255))
     screen.blit(score, (x, y))
+
+def show_timer():
+    timer = font.render("Time: " + str(int(101 - currentTime/1000)), True, (255, 255, 255))
+    screen.blit(timer, (1210, 10))
+
+
 # Game Loop
 iteratorX = 0
 iteratorY = 0
@@ -100,8 +111,6 @@ while True:
     cv2.imshow("webcam", frame)
 
     # Game screen
-    #screen.fill((50, 10, 100))
-
     # moving the Player
     player(playerPosition)
 
@@ -131,9 +140,11 @@ while True:
         InsectY += 10
 
 
-
     # showing texts
     show_score(textX, textY)
+    currentTime = pygame.time.get_ticks()
+    show_timer()
+    clock.tick(60)
 
     # display update
     pygame.display.update()
