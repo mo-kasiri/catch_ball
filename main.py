@@ -1,9 +1,8 @@
-import random
 import pygame
 import sys
 import cv2
 from cvzone.HandTrackingModule import HandDetector
-import mediapipe as mp
+
 
 width = 1366
 height = 768
@@ -127,9 +126,9 @@ while True:
     if EnemyY <= 0:
         iteratorY = 1
     if iteratorY == 0:
-        EnemyY -= 5
+        EnemyY -= 10
     if iteratorY == 1:
-        EnemyY += 5
+        EnemyY += 10
 
 
 
