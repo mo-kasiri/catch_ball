@@ -1,5 +1,4 @@
 import pygame
-from pygame import mixer
 import sys
 import cv2
 from cvzone.HandTrackingModule import HandDetector
@@ -65,7 +64,10 @@ def show_score(x, y):
     screen.blit(score, (x, y))
 
 def show_timer():
-    timer = font.render("Time: " + str(int(101 - currentTime/1000)), True, (255, 255, 255))
+    if currentTime/1000 >= 80:
+        timer = font.render("Time: " + str(int(101 - currentTime / 1000)), True, (255, 0, 0))
+    else:
+        timer = font.render("Time: " + str(int(101 - currentTime/1000)), True, (255, 255, 255))
     screen.blit(timer, (1210, 10))
 
 
@@ -106,6 +108,7 @@ while True:
         positionOfTheHand = lmList['lmList']
         playerPosition[0] = positionOfTheHand[9][0]
         playerPosition[1] = positionOfTheHand[9][1]
+            # boundaries for hand
         if playerPosition[0] >= 932:
             playerPosition[0] = 932
         elif playerPosition[0] <= 80:
