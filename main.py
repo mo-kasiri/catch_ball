@@ -41,8 +41,8 @@ playerPosition = [370, 480]
 playerMovement = [0, 0]
 
 def player(playerPosition):
-    x = playerPosition[0]
-    y = playerPosition[1]
+    x = (playerPosition[0] - 100)*1.5
+    y = (playerPosition[1] - 100)*1.5
     screen.blit(playerImg, (x, y))
 
 # Insects
@@ -106,6 +106,17 @@ while True:
         positionOfTheHand = lmList['lmList']
         playerPosition[0] = positionOfTheHand[9][0]
         playerPosition[1] = positionOfTheHand[9][1]
+        if playerPosition[0] >= 932:
+            playerPosition[0] = 932
+        elif playerPosition[0] <= 80:
+            playerPosition[0] = 80
+        if playerPosition[1] >= 560:
+            playerPosition[1] = 560
+        elif playerPosition[1] <= 80:
+            playerPosition[1] = 80
+
+
+
     # Opencv Screen
     #frame = cv2.resize(frame, (0, 0), None, 0.3, 0.3)
     cv2.imshow("webcam", frame)
