@@ -28,30 +28,28 @@ currentTime = 100
 
 # Title and Icon
 pygame.display.set_caption("Mamad Game")
-icon = pygame.image.load('images/logo.png')
+icon = pygame.image.load('images/logo.png').convert_alpha()
 pygame.display.set_icon(icon)
-backgroundImg = pygame.image.load('images/background.png')
-# cv2.imshow("ss", background)
-# cv2.waitKey(0)
+backgroundImg = pygame.image.load('images/background.png').convert()
+
+
 # Player
-playerImgCrude = pygame.image.load('images/openHand.png')
-playerImg = pygame.transform.scale(playerImgCrude, (128, 128))
 playerPosition = [370, 480]
 playerMovement = [0, 0]
+x = width/2 - 64
+y = height/2 - 64
+playerImgCrude = pygame.image.load('images/openHand.png').convert_alpha()
+playerImg = pygame.transform.scale(playerImgCrude, (128, 128))
+player_rect = playerImg.get_rect(topleft=(x, y))
 
-def player(playerPosition):
-    x = (playerPosition[0] - 100)*1.5
-    y = (playerPosition[1] - 100)*1.5
-    screen.blit(playerImg, (x, y))
 
 # Insects
-InsectImg = pygame.image.load('images/enemy.png')
-InsectImg = pygame.transform.scale(InsectImg, (32, 32))
 InsectX = random.randint(0, 1366)
 InsectY = random.randint(0, 768)
+InsectImg = pygame.image.load('images/enemy.png').convert_alpha()
+InsectImg = pygame.transform.scale(InsectImg, (32, 32))
+insect_rect = InsectImg.get_rect(topleft=(InsectX, InsectY))
 
-def Insects(x, y):
-    screen.blit(InsectImg, (x, y))
 
 ## Game Texts
  # Score Text
@@ -71,7 +69,7 @@ def show_timer():
     screen.blit(timer, (1210, 10))
 
 
-# Game Loop
+################################################################################################## Game Loop
 iteratorX = 0
 iteratorY = 0
 while True:
@@ -106,17 +104,17 @@ while True:
         #Get the first hand detected
         lmList = hands[0]
         positionOfTheHand = lmList['lmList']
-        playerPosition[0] = positionOfTheHand[9][0]
-        playerPosition[1] = positionOfTheHand[9][1]
+        player_rect.left = (positionOfTheHand[9][0] - 200) * 1.5
+        player_rect.top = (positionOfTheHand[9][1] - 200) * 1.5
             # boundaries for hand
-        if playerPosition[0] >= 932:
-            playerPosition[0] = 932
-        elif playerPosition[0] <= 80:
-            playerPosition[0] = 80
-        if playerPosition[1] >= 560:
-            playerPosition[1] = 560
-        elif playerPosition[1] <= 80:
-            playerPosition[1] = 80
+        # if player_rect.left >= 932:
+        #     player_rect.left = 932
+        # elif player_rect.left <= 80:
+        #     player_rect.left = 80
+        # if player_rect.top >= 560:
+        #     player_rect.top = 560
+        # elif player_rect.top <= 80:
+        #     player_rect.top = 80
 
 
 
@@ -126,42 +124,45 @@ while True:
 
     # Game screen
     # moving the Player
-    player(playerPosition)
+    screen.blit(playerImg, player_rect)
 
     ## placing Insects
-    Insects(InsectX, InsectY)
+    screen.blit(InsectImg, insect_rect)
     # InsectY += 5
     ## moving Insects
 
         # moving X
-    if InsectX >= width - 32:
+    if insect_rect.right >= width - 32:
         iteratorX = 0
-    if InsectX <= 0:
+    if insect_rect.right <= 0:
         iteratorX = 1
     if iteratorX == 0:
-        InsectX -= 20
+        insect_rect.right -= 20
     if iteratorX == 1:
-        InsectX += 20
+        insect_rect.right += 20
 
         # moving Y
-    if InsectY >= height - 32:
+    if insect_rect.top >= height - 32:
         iteratorY = 0
-    if InsectY <= 0:
+    if insect_rect.top <= 0:
         iteratorY = 1
     if iteratorY == 0:
-        InsectY -= 10
+        insect_rect.top -= 10
     if iteratorY == 1:
-        InsectY += 10
+        insect_rect.top += 10
 
 
     # showing texts
     show_score(textX, textY)
     currentTime = pygame.time.get_ticks()
     show_timer()
-    clock.tick(60)
+
+    # check collision
+    print(player_rect.colliderect(insect_rect))
 
     # display update
     pygame.display.update()
+    clock.tick(60)
 
 
 
