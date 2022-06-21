@@ -38,9 +38,13 @@ playerPosition = [370, 480]
 playerMovement = [0, 0]
 x = width/2 - 64
 y = height/2 - 64
-playerImgCrude = pygame.image.load('images/openHand.png').convert_alpha()
-playerImg = pygame.transform.scale(playerImgCrude, (128, 128))
-player_rect = playerImg.get_rect(topleft=(x, y))
+openHandImg = pygame.image.load('images/openHand.png').convert_alpha()
+openHandImg = pygame.transform.scale(openHandImg, (128, 128))
+openHand_rect = openHandImg.get_rect(topleft=(x, y))
+
+closedHandImg = pygame.image.load('images/closedHand.png').convert_alpha()
+closedHandImg = pygame.transform.scale(closedHandImg, (128, 128))
+closedHand_rect = closedHandImg.get_rect(topleft=(x, y))
 
 
 # Insects
@@ -68,10 +72,11 @@ def show_timer():
         timer = font.render("Time: " + str(int(101 - currentTime/1000)), True, (255, 255, 255))
     screen.blit(timer, (1210, 10))
 
-
+indexes_for_closed_fingers = [8, 12, 16, 20]
 ################################################################################################## Game Loop
 iteratorX = 0
 iteratorY = 0
+fingers = [0, 0, 0, 0]
 while True:
     # Game code
     screen.blit(backgroundImg, (0, 0))
@@ -93,9 +98,9 @@ while True:
                 playerMovement[0] = 0
             if event.key == pygame.K_RIGHT:
                 playerMovement[0] = 0
+
+    # opencv code
     success, frame = cap.read()
-
-
     # Mediapipe code for hand detection and Landmarks
     hands, frame = detector.findHands(frame)
 
@@ -104,27 +109,39 @@ while True:
         #Get the first hand detected
         lmList = hands[0]
         positionOfTheHand = lmList['lmList']
-        player_rect.left = (positionOfTheHand[9][0] - 200) * 1.5
-        player_rect.top = (positionOfTheHand[9][1] - 200) * 1.5
+        openHand_rect.left = (positionOfTheHand[9][0] - 200) * 1.5
+        openHand_rect.top = (positionOfTheHand[9][1] - 200) * 1.5
+        closedHand_rect.left = (positionOfTheHand[9][0] - 200) * 1.5
+        closedHand_rect.top = (positionOfTheHand[9][1] - 200) * 1.5
             # boundaries for hand
-        # if player_rect.left >= 932:
-        #     player_rect.left = 932
-        # elif player_rect.left <= 80:
-        #     player_rect.left = 80
-        # if player_rect.top >= 560:
-        #     player_rect.top = 560
-        # elif player_rect.top <= 80:
-        #     player_rect.top = 80
+        # if openHand_rect.left >= 932:
+        #     openHand_rect.left = 932
+        # elif openHand_rect.left <= 80:
+        #     openHand_rect.left = 80
+        # if openHand_rect.top >= 560:
+        #     openHand_rect.top = 560
+        # elif openHand_rect.top <= 80:
+        #     openHand_rect.top = 80
 
 
+        ## open or closed hand
+        for index in range(0, 4):
+            if positionOfTheHand[indexes_for_closed_fingers[index]][1] > positionOfTheHand[indexes_for_closed_fingers[index] - 2][1]:
+                fingers[index] = 1
+            else:
+                fingers[index] = 0
+            #print(fingers)
+            if fingers[0]*fingers[1]*fingers[2]*fingers[3]:
+                screen.blit(closedHandImg, closedHand_rect)
+            else:
+                screen.blit(openHandImg, openHand_rect)
 
     # Opencv Screen
     #frame = cv2.resize(frame, (0, 0), None, 0.3, 0.3)
     cv2.imshow("webcam", frame)
 
     # Game screen
-    # moving the Player
-    screen.blit(playerImg, player_rect)
+
 
     ## placing Insects
     screen.blit(InsectImg, insect_rect)
@@ -137,9 +154,9 @@ while True:
     if insect_rect.right <= 0:
         iteratorX = 1
     if iteratorX == 0:
-        insect_rect.right -= 20
+        insect_rect.right -= 10
     if iteratorX == 1:
-        insect_rect.right += 20
+        insect_rect.right += 10
 
         # moving Y
     if insect_rect.top >= height - 32:
@@ -158,7 +175,7 @@ while True:
     show_timer()
 
     # check collision
-    print(player_rect.colliderect(insect_rect))
+    # print(openHand_rect.colliderect(insect_rect))
 
     # display update
     pygame.display.update()
