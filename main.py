@@ -24,6 +24,9 @@ pygame.init()
 mixer.music.load('music/background.mp3')
 mixer.music.play(loops=-1)
 
+closedHand_sound = mixer.Sound('music/slap.mp3')
+catching_sound = mixer.Sound('music/catching_sound.wav')
+
 # Define the screen
 screen = pygame.display.set_mode((width, height))
 
@@ -90,7 +93,7 @@ def show_timer():
 
 indexes_for_closed_fingers = [8, 12, 16, 20]
 ################################################################################################## Game Loop
-
+catch_insect_with_openHand = False
 fingers = [0, 0, 0, 0]
 while True:
     # Game code
@@ -126,22 +129,31 @@ while True:
                 fingers[index] = 0
             #print(fingers)
             if fingers[0]*fingers[1]*fingers[2]*fingers[3]:
-                if hand_is_closed:
-                    closedHand_sound = mixer.Sound('music/slap.mp3')
+                # playing close hand sound
+                if hand_is_closed and catch_insect_with_openHand == False:
                     closedHand_sound.play()
                 hand_is_closed = 0
                 screen.blit(closedHandImg, closedHand_rect)
+                # detect catching
+                for iteration in range(numberOfInsects):
+                    if openHand_rect.colliderect(insect_rect[iteration]) and catch_insect_with_openHand:
+                        score_value += 1
+                        catching_sound.play()
+                        catch_insect_with_openHand = False
+                        insect_rect[iteration] = InsectImg[iteration].get_rect(topleft=(random.randint(0, 1366), random.randint(0, 768)))
             else:
                 screen.blit(openHandImg, openHand_rect)
                 hand_is_closed = 1
+                for iterate in range(numberOfInsects):
+                    if openHand_rect.colliderect(insect_rect[iterate]):
+                        catch_insect_with_openHand = True
+
 
     # Opencv Screen
     #frame = cv2.resize(frame, (0, 0), None, 0.3, 0.3)
     cv2.imshow("webcam", frame)
 
     # Game screen
-
-
     ## placing Insects
 
     # InsectY += 5
@@ -168,7 +180,7 @@ while True:
     show_timer()
 
     # check collision
-    # print(openHand_rect.colliderect(insect_rect))
+    # print(openHand_rect.colliderect(insect_rect[0]))
 
     # display update
     pygame.display.update()
