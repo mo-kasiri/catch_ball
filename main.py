@@ -9,7 +9,7 @@ width = 1366
 height = 768
 
 # opencv code
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 cap.set(3, width)
 cap.set(4, height)
 
@@ -59,7 +59,7 @@ InsectY = []
 insect_rect = []
 insectMoveX = []
 insectMoveY = []
-numberOfInsects = 2
+numberOfInsects = 5
 for i in range(numberOfInsects):
     InsectX.append(random.randint(0, 1366))
     InsectY.append(random.randint(0, 768))
