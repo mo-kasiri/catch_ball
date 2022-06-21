@@ -66,8 +66,8 @@ for i in range(numberOfInsects):
     InsectImg.append(pygame.image.load('images/insect.png').convert_alpha())
     #InsectImg.append(pygame.transform.scale(InsectImg, (32, 32)))
     insect_rect.append(InsectImg[i].get_rect(topleft=(InsectX[i], InsectY[i])))
-    insectMoveX.append(5)
-    insectMoveY.append(5)
+    insectMoveX.append(10)
+    insectMoveY.append(8)
 
 ## Game Texts
  # Score Text
@@ -165,16 +165,16 @@ while True:
             # moving X
         insect_rect[i].right += insectMoveX[i]
         if insect_rect[i].right <= 16:
-            insectMoveX[i] += 5
+            insectMoveX[i] += 10
         elif insect_rect[i].right >= width:
-            insectMoveX[i] -= 5
+            insectMoveX[i] -= 10
 
             # moving Y
         insect_rect[i].top += insectMoveY[i]
         if insect_rect[i].top <= 0:
-            insectMoveY[i] += 5
+            insectMoveY[i] += 8
         elif insect_rect[i].top >= height-32:
-            insectMoveY[i] -= 5
+            insectMoveY[i] -= 8
         screen.blit(InsectImg[i], insect_rect[i])
 
     # showing texts
