@@ -8,7 +8,6 @@ from pygame import mixer
 width = 1366
 height = 768
 
-
 # opencv code
 cap = cv2.VideoCapture(1)
 cap.set(3, width)
@@ -32,15 +31,13 @@ screen = pygame.display.set_mode((width, height))
 
 # Timer
 clock = pygame.time.Clock()
-currentTime = 100
-
+currentTime = 1
 
 # Title and Icon
 pygame.display.set_caption("Mamad Game")
 icon = pygame.image.load('images/logo.png').convert_alpha()
 pygame.display.set_icon(icon)
 backgroundImg = pygame.image.load('images/background.png').convert()
-
 
 # Player
 playerPosition = [370, 480]
@@ -54,7 +51,6 @@ openHand_rect = openHandImg.get_rect(topleft=(x, y))
 closedHandImg = pygame.image.load('images/closedHand.png').convert_alpha()
 closedHandImg = pygame.transform.scale(closedHandImg, (128, 128))
 closedHand_rect = closedHandImg.get_rect(topleft=(x, y))
-
 
 # Insects
 InsectImg = []
@@ -78,6 +74,7 @@ for i in range(numberOfInsects):
  # Score Text
 score_value = 0
 font = pygame.font.Font('freesansbold.ttf', 32)
+gameOver_font = pygame.font.Font('freesansbold.ttf', 100)
 textX = 10
 textY = 10
 def show_score(x, y):
@@ -90,6 +87,10 @@ def show_timer():
     else:
         timer = font.render("Time: " + str(int(101 - currentTime/1000)), True, (255, 255, 255))
     screen.blit(timer, (1210, 10))
+    if currentTime / 1000 >= 100:
+        gameOver = gameOver_font.render("Game Over!", True, (255, 0, 0))
+        screen.blit(gameOver, (width/2 - 300, height/2 - 30))
+
 
 indexes_for_closed_fingers = [8, 12, 16, 20]
 ################################################################################################## Game Loop
@@ -127,7 +128,6 @@ while True:
                 fingers[index] = 1
             else:
                 fingers[index] = 0
-            #print(fingers)
             if fingers[0]*fingers[1]*fingers[2]*fingers[3]:
                 # playing close hand sound
                 if hand_is_closed and catch_insect_with_openHand == False:
@@ -156,7 +156,6 @@ while True:
     # Game screen
     ## placing Insects
 
-    # InsectY += 5
     ## moving Insects
     for i in range(numberOfInsects):
             # moving X
@@ -178,9 +177,6 @@ while True:
     show_score(textX, textY)
     currentTime = pygame.time.get_ticks()
     show_timer()
-
-    # check collision
-    # print(openHand_rect.colliderect(insect_rect[0]))
 
     # display update
     pygame.display.update()
