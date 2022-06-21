@@ -3,9 +3,11 @@ import sys
 import cv2
 from cvzone.HandTrackingModule import HandDetector
 import random
+from pygame import mixer
 
 width = 1366
 height = 768
+
 
 # opencv code
 cap = cv2.VideoCapture(1)
@@ -17,6 +19,10 @@ detector = HandDetector(maxHands=1, detectionCon=0.8)
 
 # Initialize the pygame
 pygame.init()
+
+# background sounds
+mixer.music.load('music/background.mp3')
+mixer.music.play(loops=-1)
 
 # Define the screen
 screen = pygame.display.set_mode((width, height))
@@ -54,7 +60,7 @@ InsectY = []
 insect_rect = []
 insectMoveX = []
 insectMoveY = []
-numberOfInsects = 3
+numberOfInsects = 5
 for i in range(numberOfInsects):
     InsectX.append(random.randint(0, 1366))
     InsectY.append(random.randint(0, 768))
@@ -62,7 +68,7 @@ for i in range(numberOfInsects):
     #InsectImg.append(pygame.transform.scale(InsectImg, (32, 32)))
     insect_rect.append(InsectImg[i].get_rect(topleft=(InsectX[i], InsectY[i])))
     insectMoveX.append(10)
-    insectMoveY.append(7)
+    insectMoveY.append(10)
 
 
 ## Game Texts
@@ -112,6 +118,7 @@ while True:
         closedHand_rect.top = (positionOfTheHand[9][1] - 200) * 1.5
 
         ## open or closed hand
+        hand_is_closed = 0 #for playing the sound once when hand is closed
         for index in range(0, 4):
             if positionOfTheHand[indexes_for_closed_fingers[index]][1] > positionOfTheHand[indexes_for_closed_fingers[index] - 2][1]:
                 fingers[index] = 1
@@ -119,9 +126,14 @@ while True:
                 fingers[index] = 0
             #print(fingers)
             if fingers[0]*fingers[1]*fingers[2]*fingers[3]:
+                if hand_is_closed:
+                    closedHand_sound = mixer.Sound('music/slap.mp3')
+                    closedHand_sound.play()
+                hand_is_closed = 0
                 screen.blit(closedHandImg, closedHand_rect)
             else:
                 screen.blit(openHandImg, openHand_rect)
+                hand_is_closed = 1
 
     # Opencv Screen
     #frame = cv2.resize(frame, (0, 0), None, 0.3, 0.3)
