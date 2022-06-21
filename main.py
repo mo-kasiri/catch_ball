@@ -59,16 +59,15 @@ InsectY = []
 insect_rect = []
 insectMoveX = []
 insectMoveY = []
-numberOfInsects = 5
+numberOfInsects = 2
 for i in range(numberOfInsects):
     InsectX.append(random.randint(0, 1366))
     InsectY.append(random.randint(0, 768))
     InsectImg.append(pygame.image.load('images/insect.png').convert_alpha())
     #InsectImg.append(pygame.transform.scale(InsectImg, (32, 32)))
     insect_rect.append(InsectImg[i].get_rect(topleft=(InsectX[i], InsectY[i])))
-    insectMoveX.append(10)
-    insectMoveY.append(10)
-
+    insectMoveX.append(5)
+    insectMoveY.append(5)
 
 ## Game Texts
  # Score Text
@@ -141,12 +140,17 @@ while True:
                         catching_sound.play()
                         catch_insect_with_openHand = False
                         insect_rect[iteration] = InsectImg[iteration].get_rect(topleft=(random.randint(0, 1366), random.randint(0, 768)))
+
+                catch_insect_with_openHand = False
             else:
                 screen.blit(openHandImg, openHand_rect)
                 hand_is_closed = 1
                 for iterate in range(numberOfInsects):
                     if openHand_rect.colliderect(insect_rect[iterate]):
                         catch_insect_with_openHand = True
+
+
+
 
 
     # Opencv Screen
@@ -161,16 +165,16 @@ while True:
             # moving X
         insect_rect[i].right += insectMoveX[i]
         if insect_rect[i].right <= 16:
-            insectMoveX[i] += 10
+            insectMoveX[i] += 5
         elif insect_rect[i].right >= width:
-            insectMoveX[i] -= 10
+            insectMoveX[i] -= 5
 
             # moving Y
         insect_rect[i].top += insectMoveY[i]
         if insect_rect[i].top <= 0:
-            insectMoveY[i] += 10
+            insectMoveY[i] += 5
         elif insect_rect[i].top >= height-32:
-            insectMoveY[i] -= 10
+            insectMoveY[i] -= 5
         screen.blit(InsectImg[i], insect_rect[i])
 
     # showing texts
