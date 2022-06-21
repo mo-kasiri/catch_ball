@@ -48,11 +48,21 @@ closedHand_rect = closedHandImg.get_rect(topleft=(x, y))
 
 
 # Insects
-InsectX = random.randint(0, 1366)
-InsectY = random.randint(0, 768)
-InsectImg = pygame.image.load('images/enemy.png').convert_alpha()
-InsectImg = pygame.transform.scale(InsectImg, (32, 32))
-insect_rect = InsectImg.get_rect(topleft=(InsectX, InsectY))
+InsectImg = []
+InsectX = []
+InsectY = []
+insect_rect = []
+insectMoveX = []
+insectMoveY = []
+numberOfInsects = 3
+for i in range(numberOfInsects):
+    InsectX.append(random.randint(0, 1366))
+    InsectY.append(random.randint(0, 768))
+    InsectImg.append(pygame.image.load('images/insect.png').convert_alpha())
+    #InsectImg.append(pygame.transform.scale(InsectImg, (32, 32)))
+    insect_rect.append(InsectImg[i].get_rect(topleft=(InsectX[i], InsectY[i])))
+    insectMoveX.append(10)
+    insectMoveY.append(7)
 
 
 ## Game Texts
@@ -74,8 +84,7 @@ def show_timer():
 
 indexes_for_closed_fingers = [8, 12, 16, 20]
 ################################################################################################## Game Loop
-iteratorX = 0
-iteratorY = 0
+
 fingers = [0, 0, 0, 0]
 while True:
     # Game code
@@ -86,18 +95,6 @@ while True:
             cv2.destroyAllWindows()
             pygame.quit()
             sys.exit()
-
-        # if Keystroke is pressed or not
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                playerMovement[0] = -15
-            if event.key == pygame.K_RIGHT:
-                playerMovement[0] = 15
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT:
-                playerMovement[0] = 0
-            if event.key == pygame.K_RIGHT:
-                playerMovement[0] = 0
 
     # opencv code
     success, frame = cap.read()
@@ -113,16 +110,6 @@ while True:
         openHand_rect.top = (positionOfTheHand[9][1] - 200) * 1.5
         closedHand_rect.left = (positionOfTheHand[9][0] - 200) * 1.5
         closedHand_rect.top = (positionOfTheHand[9][1] - 200) * 1.5
-            # boundaries for hand
-        # if openHand_rect.left >= 932:
-        #     openHand_rect.left = 932
-        # elif openHand_rect.left <= 80:
-        #     openHand_rect.left = 80
-        # if openHand_rect.top >= 560:
-        #     openHand_rect.top = 560
-        # elif openHand_rect.top <= 80:
-        #     openHand_rect.top = 80
-
 
         ## open or closed hand
         for index in range(0, 4):
@@ -144,30 +131,24 @@ while True:
 
 
     ## placing Insects
-    screen.blit(InsectImg, insect_rect)
+
     # InsectY += 5
     ## moving Insects
+    for i in range(numberOfInsects):
+            # moving X
+        insect_rect[i].right += insectMoveX[i]
+        if insect_rect[i].right <= 16:
+            insectMoveX[i] += 10
+        elif insect_rect[i].right >= width:
+            insectMoveX[i] -= 10
 
-        # moving X
-    if insect_rect.right >= width - 32:
-        iteratorX = 0
-    if insect_rect.right <= 0:
-        iteratorX = 1
-    if iteratorX == 0:
-        insect_rect.right -= 10
-    if iteratorX == 1:
-        insect_rect.right += 10
-
-        # moving Y
-    if insect_rect.top >= height - 32:
-        iteratorY = 0
-    if insect_rect.top <= 0:
-        iteratorY = 1
-    if iteratorY == 0:
-        insect_rect.top -= 10
-    if iteratorY == 1:
-        insect_rect.top += 10
-
+            # moving Y
+        insect_rect[i].top += insectMoveY[i]
+        if insect_rect[i].top <= 0:
+            insectMoveY[i] += 10
+        elif insect_rect[i].top >= height-32:
+            insectMoveY[i] -= 10
+        screen.blit(InsectImg[i], insect_rect[i])
 
     # showing texts
     show_score(textX, textY)
