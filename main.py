@@ -9,7 +9,7 @@ width = 1366
 height = 768
 
 # opencv code
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 cap.set(3, width)
 cap.set(4, height)
 
