@@ -34,10 +34,10 @@ clock = pygame.time.Clock()
 currentTime = 1
 
 # Title and Icon
-pygame.display.set_caption("Mamad Game")
-icon = pygame.image.load('images/logo.png').convert_alpha()
+pygame.display.set_caption("Catch Ball")
+icon = pygame.image.load('images/ball_32.png').convert_alpha()
 pygame.display.set_icon(icon)
-backgroundImg = pygame.image.load('images/background.png').convert()
+backgroundImg = pygame.image.load('images/tennisBack.png').convert()
 
 # Player
 playerPosition = [370, 480]
@@ -59,11 +59,11 @@ InsectY = []
 insect_rect = []
 insectMoveX = []
 insectMoveY = []
-numberOfInsects = 5
+numberOfInsects = 10
 for i in range(numberOfInsects):
     InsectX.append(random.randint(0, 1366))
     InsectY.append(random.randint(0, 768))
-    InsectImg.append(pygame.image.load('images/insect.png').convert_alpha())
+    InsectImg.append(pygame.image.load('images/ball_32.png').convert_alpha())
     #InsectImg.append(pygame.transform.scale(InsectImg, (32, 32)))
     insect_rect.append(InsectImg[i].get_rect(topleft=(InsectX[i], InsectY[i])))
     insectMoveX.append(10)

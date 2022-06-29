@@ -1,4 +1,4 @@
-# InsectKiller
+# Catch Ball
 A simple computer vision game created with mediapipe, opencv and pygame
 # Description
 Multiple sclerosis (MS) is a condition that can affect the brain and spinal cord, causing a wide range of potential symptoms, including problems with vision, arm or leg movement, sensation or balance. We have designed an exer-game using computer vision for arm rehabilitation in people with multiple sclerosis.
@@ -10,7 +10,7 @@ Multiple sclerosis (MS) is a condition that can affect the brain and spinal cord
 4- Open your Terminal app inside Root directory of the project and run main.py: `python main.py`<br>
 5- Play the game
 # How to play
-In the game play you have to try to catch the insects with your hand (dosn't matter which one), so just open your hand and when an insect is in your hand you have to close it fast.
+In the game play you have to try to catch the Balls with your hand (dosn't matter which one), so just open your hand and when an insect is in your hand you have to close it instantly.
 # Soloution for possible errors
 1- You must have a webcam for running this game, or you can use your smart phone as a webcam<br>
 2- Maybe you need to change your webcam ID and set it on 0<br>
