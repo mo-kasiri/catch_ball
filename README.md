@@ -15,6 +15,7 @@ In the game play you have to try to catch the Balls with your hand (dosn't matte
 1- You must have a webcam for running this game, or you can use your smart phone as a webcam<br>
 2- Maybe you need to change your webcam ID and set it on 0<br>
 3- Maybe Your webcam is upside down<br>
-3- Restart the game :)<br>
+4- Install missed libraries such as cvzone, mediapipe, opencv and pygame<br>
+5- Restart the game :)<br>
 
 
