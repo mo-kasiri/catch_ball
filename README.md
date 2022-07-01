@@ -6,7 +6,7 @@ Multiple sclerosis (MS) is a condition that can affect the brain and spinal cord
 **Make Environment Ready By Following Steps Below:**<br>
 1- Install [python and pip](https://www.python.org/) on your computer<br>
 2- Open your Termainl and by pip insall mediapipe, pygame, cv2 and cvzone<br>
-3- Download the code from git hub link in above, and place it on your system<br>
+3- Clone the project on your computer or you can download the code from github link above, and place it on your system<br>
 4- Open your Terminal app inside Root directory of the project and run main.py: `python main.py`<br>
 5- Play the game
 # How to play
