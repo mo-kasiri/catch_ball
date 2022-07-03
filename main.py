@@ -37,7 +37,7 @@ currentTime = 1
 pygame.display.set_caption("Catch Ball")
 icon = pygame.image.load('images/ball_32.png').convert_alpha()
 pygame.display.set_icon(icon)
-backgroundImg = pygame.image.load('images/tennisBack.png').convert()
+backgroundImg = pygame.image.load('images/TennisBack.png').convert()
 
 # Player
 playerPosition = [370, 480]
