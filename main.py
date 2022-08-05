@@ -155,6 +155,7 @@ while True:
 
     # Opencv Screen
     #frame = cv2.resize(frame, (0, 0), None, 0.3, 0.3)
+    # It's something optional If you don't want to see your hand, omit this line of code
     cv2.imshow("webcam", frame)
 
     # Game screen
