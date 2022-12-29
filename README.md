@@ -4,7 +4,7 @@ A straightforward computer-vision game developted by Mediapipe, openCV and Pygam
 Multiple sclerosis (MS) is a condition that can affect the brain and spinal cord, causing a wide range of potential symptoms, including problems with vision, arm or leg movement, sensation, or balance. We have designed an exergame using computer vision for arm rehabilitation in individuals with multiple sclerosis.
 # How to run
 **Make Environment Ready By Following Steps Below:**<br>
-1- Install [python and pip](https://www.python.org/) on your computer<br>
+1- Install [python 3.10 and pip](https://www.python.org/) on your computer<br>
 2- Open your Termainl and by pip insall mediapipe, pygame, cv2 and cvzone<br>
 3- Clone the project on your computer or you can download the code from github link above, and place it on your system<br>
 4- Open your Terminal app inside Root directory of the project and run main.py: `python main.py`<br>
