@@ -10,7 +10,7 @@ Multiple sclerosis (MS) is a condition that can affect the brain and spinal cord
 4- Open your Terminal app inside Root directory of the project and run main.py: `python main.py`<br>
 5- Play the game
 # How to play
-In the game-play, try to catch the Balls with your hand (it doesn't matter which one), so open your hand, and when an insect comes inside your hand, try to close it instantly..
+In the game-play, try to catch the Balls with your hand (it doesn't matter which one), so open your hand, and when an ball comes inside your hand, try to close it instantly..
 # Soloution for possible errors
 1- You must have a webcam to play this game, or you can use your smartphone as a webcam<br>
 2- You need to change your webcam ID and set it to 0, or if it is not possible to change the camera ID, you can open main.py file and in line 10 change the ID, set it on your webcam ID<br>
