@@ -16,6 +16,6 @@ In the game-play, try to catch the Balls with your hand (it doesn't matter which
 2- You need to change your webcam ID and set it to 0, or if it is not possible to change the camera ID, you can open main.py file and in line 10 change the ID, set it on your webcam ID<br>
 3- Check the direction of your webcam, and make sure that it's not upside down or reflects your picture as a mirror (that would cause the hand image in the game moves in the opposite direction of your actual hand)<br>
 4- In case of missing a specific library make sure which one is missing, and try to Install it (it could be any one of these "cvzone, mediapipe, opencv and pygame")<br>
-5- If you are encountered problems during playing the game, such as speed going down or the game doesn't work correctly, restarting the game may solve the problem:)<br>
+5- If you encounter issues while playing the game, such as a decrease in speed or the game not functioning correctly, try restarting the game to potentially solve the problem.<br>
 
 
