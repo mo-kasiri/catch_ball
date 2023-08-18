@@ -10,7 +10,7 @@ Multiple sclerosis (MS) is a condition that can affect the brain and spinal cord
 4- Open your Terminal app inside the Root directory of the project and run main.py: `python main.py`<br>
 5- Play the game
 ## Demo
-![demo](https://github.com/mo-kasiri/catch_ball/assets/20669157/f3f83464-3ef2-4386-ad55-3213f869fe82)#
+![demo](https://github.com/mo-kasiri/catch_ball/assets/20669157/f3f83464-3ef2-4386-ad55-3213f869fe82)
 # How to play
 In the game-play, try to catch the Balls with your hand (it doesn't matter which one), so open your hand, and when a ball comes inside your hand, try to close it instantly.
 # Soloution for possible errors
