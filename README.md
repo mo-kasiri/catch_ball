@@ -1,4 +1,4 @@
- Catch Ball
+# Catch Ball
 A straightforward computer-vision game developed by Mediapipe, openCV, and Pygame
 # Description
 Multiple sclerosis (MS) is a condition that can affect the brain and spinal cord, causing a wide range of potential symptoms, including problems with vision, arm or leg movement, sensation, or balance. We have designed an exergame using computer vision for arm rehabilitation in individuals with multiple sclerosis.
